@@ -8,9 +8,24 @@ const path = require('path');
 const app = express(); // <== app initialized AFTER imports
 
 require('dotenv').config();
+const createGovernmentTable = require('./Models/gov_stdModel');
+const createSelfFundingTable = require('./Models/self_stdModels');
+const { createUsersTable } = require('./Models/user');
 
+// Create all tables when app starts
+async function start() {
+  try {
+    await createGovernmentTable();
+    await createSelfFundingTable();
+    await createUsersTable();
 
-
+    console.log('✅ All tables created successfully.');
+    // Then you can start your express app or server here
+  } catch (err) {
+    console.error('❌ Error creating tables:', err);
+  }
+}
+start();
 // View engine and static files
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
