@@ -1,0 +1,225 @@
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6; /* Light grey background */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures footer sticks to the bottom */
+}
+
+/* Header Styles */
+header {
+    background-color: #3b5998; /* Dark blue from the image */
+    color: white;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 50px; /* Adjust as needed */
+    width: auto;
+    margin-right: 10px;
+}
+
+nav .nav-button {
+    background-color: #5d7fb7; /* Slightly lighter blue for buttons */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 15px;
+    transition: background-color 0.3s ease;
+}
+
+nav .nav-button:hover {
+    background-color: #4a6aa0;
+}
+
+.registration-button {
+    background-color: #ffc107; /* Yellow for registration button */
+    color: #333; /* Dark text for contrast */
+}
+
+.registration-button:hover {
+    background-color: #e0a800;
+}
+
+/* Main Content Styles */
+main {
+    flex-grow: 1; /* Allows main content to take up available space */
+    padding: 40px 5%;
+    text-align: center;
+    max-width: 1200px; /* Limit content width */
+    margin: 20px auto; /* Center the main content */
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 2.2em;
+}
+
+.intro-text {
+    color: #666;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    font-size: 1.1em;
+}
+
+.registration-options {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Space between cards */
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+}
+
+.option-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 380px; /* Fixed width for cards, adjust as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.option-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.option-icon {
+    height: 120px; /* Size of the scholarship/self-funded icons */
+    margin-bottom: 25px;
+}
+
+.option-card h2 {
+    color: #3b5998; /* Blue heading */
+    margin-bottom: 15px;
+    font-size: 1.8em;
+}
+
+.option-card p {
+    color: #777;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    flex-grow: 1; /* Allows paragraph to take up space, pushing button to bottom */
+}
+
+.register-button {
+    background-color: #ffc107; /* Yellow button */
+    color: #333;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.register-button:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+}
+
+/* Footer Styles */
+footer {
+    background-color: #ffc107; /* Yellow footer */
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px; /* Space above footer */
+}
+
+footer a {
+    color: #3b5998; /* Blue link in footer */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 20px;
+    }
+
+    nav {
+        margin-top: 15px;
+    }
+
+    nav .nav-button {
+        margin: 5px 10px;
+    }
+
+    main {
+        padding: 30px 3%;
+        margin: 15px auto;
+    }
+
+    .registration-options {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .option-card {
+        width: 90%; /* Make cards wider on smaller screens */
+        max-width: 400px; /* Limit max width */
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .intro-text {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        height: 40px;
+    }
+
+    nav .nav-button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    .option-icon {
+        height: 100px;
+    }
+
+    .option-card h2 {
+        font-size: 1.5em;
+    }
+
+    .register-button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="/css/signup.css" />
+</head>
+<body>
+  <div class="signup-wrapper">
+    <div class="signup-container">
+      <img src="/images/logo.png" alt="Logo" class="logo" />
+      <h2>Create your account</h2>
+
+      <% if (message) { %>
+        <div class="alert-message"><%= message %></div>
+      <% } %>
+
+      <form action="/signup" method="POST">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" placeholder="Name" required />
+
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" placeholder="Email" required />
+
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" placeholder="Password" required />
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm Password" required />
+
+        <label for="role">Choose Role</label>
+        <select id="role" name="role" required>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <div id="adminCodeDiv" style="display:none;">
+          <label for="adminCode">Admin Secret Code</label>
+          <input id="adminCode" type="password" name="adminCode" placeholder="Admin Secret Code" />
+        </div>
+
+        <button type="submit" class="btn-primary">Sign Up</button>
+      </form>
+
+      <p class="small-text">
+        Already have an account? <a href="/login">Login here</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const roleSelect = document.getElementById('role');
+    const adminCodeDiv = document.getElementById('adminCodeDiv');
+    const adminCodeInput = document.getElementById('adminCode');
+
+    // Show/hide admin code field based on selected role
+    function toggleAdminCode() {
+      if (roleSelect.value === 'admin') {
+        adminCodeDiv.style.display = 'block';
+        adminCodeInput.setAttribute('required', true);
+      } else {
+        adminCodeDiv.style.display = 'none';
+        adminCodeInput.removeAttribute('required');
+        adminCodeInput.value = ''; // Clear if previously entered
+      }
+    }
+
+    // Trigger on page load and change
+    roleSelect.addEventListener('change', toggleAdminCode);
+    window.addEventListener('DOMContentLoaded', toggleAdminCode);
+  </script>
+</body>
+</html>

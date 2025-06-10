@@ -1,0 +1,116 @@
+<link rel="stylesheet" href="/css/form.css" />
+<link rel="stylesheet" href="/css/submission.css" />
+<%- include('../partials/header') %>
+
+<a href="/user/registration" class="back-floating" title="Back to Registration Type">← Back</a>
+
+<main class="container">
+  <h1 class="page-title">Student Registration Form</h1>
+
+  <!-- Show registration type -->
+  <h2>
+    Register as 
+    <% if (registrationType === 'government') { %> Government
+    <% } else if (registrationType === 'self_funding') { %> Self-Funding
+    <% } else { %> Unknown <% } %> Student
+  </h2>
+
+  <!-- Error message -->
+  <% if (errorMessage) { %>
+    <div class="popup-error">
+      <span><%= errorMessage %></span>
+    </div>
+    <script>
+      setTimeout(() => {
+        const el = document.querySelector('.popup-error');
+        if (el) el.style.display = 'none';
+      }, 5000);
+    </script>
+  <% } %>
+
+  <form id="registrationForm" action="/user/register/submit" method="POST">
+    <input type="hidden" name="registrationType" value="<%= registrationType %>">
+
+    <label for="studentName">Full Name:</label>
+    <input 
+      type="text" id="studentName" name="studentName" required 
+      value="<%= student ? student.studentName : '' %>" 
+    />
+
+    <label for="cidNo">CID Number:</label>
+    <input 
+      type="text" id="cidNo" name="cidNo" required 
+      value="<%= student ? student.cidNo : '' %>" 
+    />
+
+    <label for="dateOfBirth">Date of Birth:</label>
+    <input 
+      type="date" id="dateOfBirth" name="dateOfBirth" required 
+      value="<%= student ? student.dateOfBirth : '' %>" 
+    />
+
+    <label for="studentNo">Student ID:</label>
+    <input 
+      type="text" id="studentNo" name="studentNo" required 
+      value="<%= student ? student.studentNo : '' %>" 
+    />
+
+    <label for="program">Program:</label>
+    <input 
+      type="text" id="program" name="program" required 
+      value="<%= student ? student.program : '' %>" 
+    />
+
+    <label for="semester">Semester:</label>
+    <input 
+      type="number" id="semester" name="semester" min="1" required 
+      value="<%= student ? student.semester : '' %>" 
+    />
+
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" required>
+      <option value="male" <%= student && student.gender === 'male' ? 'selected' : '' %>>Male</option>
+      <option value="female" <%= student && student.gender === 'female' ? 'selected' : '' %>>Female</option>
+      <option value="other" <%= student && student.gender === 'other' ? 'selected' : '' %>>Other</option>
+    </select>
+
+    <label for="bloodGroup">Blood Group:</label>
+    <input 
+      type="text" id="bloodGroup" name="bloodGroup" 
+      value="<%= student ? student.bloodGroup : '' %>" 
+    />
+
+    <label for="permanentAddress">Permanent Address:</label>
+    <input 
+      type="text" id="permanentAddress" name="permanentAddress" required 
+      value="<%= student ? student.permanentAddress : '' %>" 
+    />
+
+    <label for="presentAddress">Present Address:</label>
+    <input 
+      type="text" id="presentAddress" name="presentAddress" 
+      value="<%= student ? student.presentAddress : '' %>" 
+    />
+
+    <label for="phoneNo">Phone Number:</label>
+    <input 
+      type="tel" id="phoneNo" name="phoneNo" required 
+      value="<%= student ? student.phoneNo : '' %>" 
+    />
+
+    <div class="form-buttons">
+      <button type="submit" class="next-btn">Submit Registration</button>
+      <button type="button" class="delete-btn" onclick="confirmDelete()">Delete my Info</button>
+    </div>
+  </form>
+
+  <script>
+    function confirmDelete() {
+      if (confirm("Are you sure you want to delete your information?")) {
+        document.getElementById("registrationForm").reset();
+      }
+    }
+  </script>
+</main>
+
+<%- include('../partials/footer') %>

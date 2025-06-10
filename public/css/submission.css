@@ -1,0 +1,77 @@
+.status-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  background-color: #f5f7fb;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.logo {
+  width: 60px;
+  margin-bottom: 0.5rem;
+}
+
+.system-label {
+  background-color: #3b61c6;
+  color: white;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  margin-bottom: 1.2rem;
+  display: inline-block;
+}
+
+.icon {
+  font-size: 48px;
+  margin: 10px 0;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  display: inline-block;
+}
+
+.success-icon {
+  background-color: #00c853;
+  color: white;
+}
+
+.error-icon {
+  background-color: #f44336;
+  color: white;
+}
+
+.message {
+  font-size: 16px;
+  margin: 20px 0;
+}
+
+.success-text {
+  color: green;
+}
+
+.error-text {
+  color: red;
+  font-weight: 500;
+}
+
+.btn {
+  background-color: #ffc107;
+  border: none;
+  padding: 8px 20px;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  border-radius: 6px;
+  display: inline-block;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>User Home</title>
+  <link rel="stylesheet" href="/css/home.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-left">
+      <img src="/images/logo.png" alt="Logo" class="logo" />
+      <span class="system-title">Student Registering System</span>
+    </div>
+    <nav class="navbar-right">
+      <a href="/user/registration" class="nav-button registration-button">Registration</a>
+      <a href="/logout" class="nav-button logout-button">Logout</a>
+    </nav>
+  </header>
+
+  <main class="content-section">
+    <section class="hero-section">
+      <div class="hero-image-container">
+        <img src="/images/college.png" alt="College Building" class="hero-image" />
+      </div>
+      <div class="hero-text-container">
+        <% if (user) { %>
+          <h2>Welcome, <%= user.username %>!</h2>
+          <p>You are logged in as a <strong><%= user.role %></strong>.</p>
+        <% } else { %>
+          <h2>Welcome, Guest!</h2>
+          <p>Please log in to access more features.</p>
+        <% } %>
+
+        <p>Access course registrations, check academic details, and manage your profile easily.</p>
+        <p>Welcome to the Student Registration section of Sherubtse College, where students can easily apply for admission, register for courses, and manage their academic details. Whether you are a new applicant or a returning student, our online system provides a convenient and efficient way to complete the registration process, update personal information, and stay informed about deadlines and academic schedules. We are committed to making your enrollment experience smooth and hassle-free, with support available from our admissions team whenever needed.</p>
+      </div>
+    </section>
+
+    <section class="call-to-action-section">
+      <div class="call-to-action-text">
+        <h2>Your Pathway to Professional and Personal Growth Begins Here.</h2>
+      </div>
+      <div class="call-to-action-button-container">
+        <a href="/user/registration" class="register-now-button">Register for Courses</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Need help? Contact our support team at <a href="mailto:support@college.edu">support@college.edu</a></p>
+  </footer>
+</body>
+</html>

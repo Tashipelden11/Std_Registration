@@ -1,0 +1,185 @@
+<%- include('../partials/header') %>
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    margin: 0;
+    background: #f9fafb;
+    color: #333;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+  }
+
+  nav {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .card-link {
+    display: inline-block;
+    margin: 0 15px;
+    padding: 8px 18px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #3498db;
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .card-link:hover,
+  .card-link.active {
+    color: #fff;
+    background-color: #3498db;
+    border-color: #2980b9;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+
+  thead {
+    background-color: #2980b9;
+    color: white;
+  }
+
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+  }
+
+  tbody tr:hover {
+    background-color: #f1f8ff;
+  }
+
+  .btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: background-color 0.25s ease;
+  }
+
+  .approve-btn {
+    background-color: #27ae60;
+  }
+  .approve-btn:hover {
+    background-color: #1e8449;
+  }
+
+  .edit-btn {
+    background-color: #2980b9;
+    text-decoration: none;
+    display: inline-block;
+    padding: 6px 12px;
+  }
+  .edit-btn:hover {
+    background-color: #1c5980;
+  }
+
+  .disapprove-btn {
+    background-color: #c0392b;
+  }
+  .disapprove-btn:hover {
+    background-color: #922b21;
+  }
+
+  footer {
+    height: 60px;
+    background-color: #f2f2f2;
+    text-align: center;
+    line-height: 60px;
+    margin-top: 40px;
+  }
+</style>
+
+<div class="page-container">
+  <h1>Government-Funded Students</h1>
+
+  <nav>
+    <a href="/admin/government-students" class="card-link active">Government-Funded Students</a>
+    <a href="/admin/self-funded-students" class="card-link">Self-Funded Students</a>
+    <a href="/logout" class="card-link" style="float: right; color: #c0392b;">Logout</a>
+  
+
+  </nav>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Program</th>
+        <th>CID Number</th>
+        <th>Date of Birth</th>
+        <th>Student Number</th>
+        <th>Semester</th>
+        <th>Gender</th>
+        <th>Blood Group</th>
+        <th>Permanent Address</th>
+        <th>Present Address</th>
+        <th>Phone No</th>
+        <th>Registration Type</th>
+        <th>Created At</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (governmentStudents && governmentStudents.length > 0) { %>
+        <% governmentStudents.forEach(student => { %>
+          <tr>
+            <td><%= student.id %></td>
+            <td><%= student.name %></td>
+            <td><%= student.program %></td>
+            <td><%= student.cidno %></td>
+            <td><%= student.dateofbirth ? new Date(student.dateofbirth).toISOString().split('T')[0] : '' %></td>
+            <td><%= student.studentno %></td>
+            <td><%= student.semester %></td>
+            <td><%= student.gender %></td>
+            <td><%= student.bloodgroup %></td>
+            <td><%= student.permanentaddress %></td>
+            <td><%= student.presentaddress %></td>
+            <td><%= student.phoneno %></td>
+            <td><%= student.registrationtype %></td>
+            <td><%= student.createdat ? student.createdat.toISOString().split('T')[0] : '' %></td>
+            <td><%= student.status %></td>
+            <td>
+              <form action="/admin/approve/government/<%= student.id %>" method="POST" style="display:inline;">
+                <button type="submit" class="btn approve-btn">Approve</button>
+              </form>
+              <a href="/admin/edit-student/government/<%= student.id %>" class="btn edit-btn">Edit</a>
+              <form action="/admin/disapprove/government/<%= student.id %>" method="POST" style="display:inline;">
+                <button type="submit" class="btn disapprove-btn">Disapprove</button>
+              </form>
+            
+            </td>
+          </tr>
+        <% }) %>
+      <% } else { %>
+        <tr>
+          <td colspan="16" style="text-align:center;">No government-funded students found.</td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/footer') %>

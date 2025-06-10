@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="/css/status.css" />
+
+<main class="status-container">
+  <div class="card <%= status === 'success' ? 'success' : 'error' %>">
+    <img src="/images/logo.png" alt="Logo" class="logo" />
+    <p class="system-label">Student Registering System</p>
+
+    <% if (status === 'success') { %>
+      <div class="icon success-icon">✔</div>
+      <p class="message success-text">Congratulations, you have registered successfully</p>
+      <a href="/user/registration" class="btn">OK</a> <!-- changed here -->
+    <% } else { %>
+      <div class="icon error-icon">✖</div>
+      <p class="message error-text">Sorry an error occurred,<br>please try again!</p>
+      <a href="/user/register/form" class="btn">Back</a>
+    <% } %>
+  </div>
+</main>
+
+

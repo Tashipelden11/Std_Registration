@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Student</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 30px;
+      margin: 0;
+      background: #f9fafb;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #2c3e50;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      margin-top: 18px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"] {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    input[disabled] {
+      background-color: #f0f0f0;
+      color: #888;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: #3498db;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      margin-top: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    @media (max-width: 600px) {
+      form {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+
+    .btn.approve-btn {
+      background-color: #27ae60;
+    }
+
+    .btn.approve-btn:hover {
+      background-color: #219150;
+    }
+
+    .btn.disapprove-btn {
+      background-color: #e74c3c;
+    }
+
+    .btn.disapprove-btn:hover {
+      background-color: #c0392b;
+    }
+
+    .action-buttons {
+      max-width: 600px;
+      margin: 10px auto;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+    
+  </style>
+</head>
+<body>
+  <h1>Edit Student</h1>
+
+  <form action="/admin/editStudent/<%= type %>/<%= student.id %>" method="POST">
+    <label>Name:</label>
+    <input type="text" name="name" value="<%= student.name %>" required />
+
+    <label>CID Number:</label>
+    <input type="number" name="cid" value="<%= student.cidno %>" required />
+
+    <label>Date of Birth:</label>
+    <input type="date" name="bob" value="<%= student.dateofbirth ? student.dateofbirth.toISOString().substring(0, 10) : '' %>" required />
+
+    <label>Student Number:</label>
+    <input type="text" name="studentno" value="<%= student.studentno %>" required />
+
+    <label>Program:</label>
+    <input type="text" name="program" value="<%= student.program %>" required />
+
+    <label>Semester:</label>
+    <input type="number" name="year" value="<%= student.semester %>" required />
+
+    <label>Gender:</label>
+    <input type="text" name="gender" value="<%= student.gender %>" required />
+
+    <label>Blood Group:</label>
+    <input type="text" name="bloodgroup" value="<%= student.bloodgroup %>" required />
+
+    <label>Permanent Address:</label>
+    <input type="text" name="permanentaddress" value="<%= student.permanentaddress %>" required />
+
+    <label>Present Address:</label>
+    <input type="text" name="presentaddress" value="<%= student.presentaddress %>" required />
+
+    <label>Phone No:</label>
+    <input type="number" name="phoneno" value="<%= student.phoneno %>" required />
+
+    <label>Status:</label>
+    <input type="text" value="<%= student.status %>" disabled />
+    <input type="hidden" name="status" value="<%= student.status %>" />
+
+    <button type="submit">Save Changes</button>
+    </form>
+  </div>
+</body>
+</html>

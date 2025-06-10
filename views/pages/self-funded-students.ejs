@@ -1,0 +1,216 @@
+<%- include('../partials/header') %>
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    margin: 0;
+    background: #f9fafb;
+    color: #333;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+  }
+
+  nav {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .card-link {
+    display: inline-block;
+    margin: 0 15px;
+    padding: 8px 18px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #3498db;
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .card-link:hover,
+  .card-link.active {
+    color: #fff;
+    background-color: #3498db;
+    border-color: #2980b9;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+
+  thead {
+    background-color: #2980b9;
+    color: white;
+  }
+
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+  }
+
+  tbody tr:hover {
+    background-color: #f1f8ff;
+  }
+
+  .btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: background-color 0.25s ease;
+  }
+
+  .approve-btn {
+    background-color: #27ae60;
+  }
+  .approve-btn:hover {
+    background-color: #1e8449;
+  }
+
+  .disapprove-btn {
+    background-color: #e74c3c;
+  }
+  .disapprove-btn:hover {
+    background-color: #c0392b;
+  }
+
+  .edit-btn {
+    background-color: #2980b9;
+    text-decoration: none;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-left: 5px;
+  }
+  .edit-btn:hover {
+    background-color: #1c5980;
+  }
+
+  footer {
+    height: 60px;
+    background-color: #f2f2f2;
+    text-align: center;
+    line-height: 60px;
+    margin-top: 40px;
+  }
+
+  .status {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    min-width: 90px;
+  }
+
+  .status-approved {
+    background-color: #e0f8e9;
+    color: #2ecc71;
+    border: 1px solid #2ecc71;
+  }
+
+  .status-disapproved {
+    background-color: #fdecea;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+  }
+
+  .status-pending {
+    background-color: #fff8e1;
+    color: #f1c40f;
+    border: 1px solid #f1c40f;
+  }
+</style>
+
+<div class="page-container">
+  <h1>Self-Funded Students</h1>
+
+  <nav>
+    <a href="/admin/government-students" class="card-link">Government-Funded Students</a>
+    <a href="/admin/self-funded-students" class="card-link active">Self-Funded Students</a>
+  </nav>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Program</th>
+        <th>CID Number</th>
+        <th>Date of Birth</th>
+        <th>Student Number</th>
+        <th>Semester</th>
+        <th>Gender</th>
+        <th>Blood Group</th>
+        <th>Permanent Address</th>
+        <th>Present Address</th>
+        <th>Phone No</th>
+        <th>Registration Type</th>
+        <th>Created At</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (selfFundedStudents && selfFundedStudents.length > 0) { %>
+        <% selfFundedStudents.forEach(student => { %>
+          <tr>
+            <td><%= student.id %></td>
+            <td><%= student.name %></td>
+            <td><%= student.program %></td>
+            <td><%= student.cidno %></td>
+            <td><%= student.dateofbirth ? new Date(student.dateofbirth).toISOString().split('T')[0] : '' %></td>
+            <td><%= student.studentno %></td>
+            <td><%= student.semester %></td>
+            <td><%= student.gender %></td>
+            <td><%= student.bloodgroup %></td>
+            <td><%= student.permanentaddress %></td>
+            <td><%= student.presentaddress %></td>
+            <td><%= student.phoneno %></td>
+            <td><%= student.registrationtype %></td>
+            <td><%= student.createdat ? student.createdat.toISOString().split('T')[0] : '' %></td>
+            <td>
+              <span class="status 
+                <%= student.status === 'approved' ? 'status-approved' : 
+                    student.status === 'disapproved' ? 'status-disapproved' : 
+                    'status-pending' %>">
+                <%= student.status %>
+              </span>
+            </td>
+            <td>
+              <form action="/admin/approve/self-funded/<%= student.id %>" method="POST" style="display:inline;">
+                <button type="submit" class="btn approve-btn">Approve</button>
+              </form>
+              <form action="/admin/disapprove/self-funded/<%= student.id %>" method="POST" style="display:inline; margin-left: 5px;">
+                <button type="submit" class="btn disapprove-btn">Disapprove</button>
+              </form>
+              <a href="/admin/edit-student/self-funded/<%= student.id %>" class="btn edit-btn">Edit</a>
+            </td>
+          </tr>
+        <% }) %>
+      <% } else { %>
+        <tr>
+          <td colspan="16" style="text-align:center;">No self-funded students found.</td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/footer') %>
