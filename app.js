@@ -10,14 +10,17 @@ const path = require('path');
 const app = express(); // <== app initialized AFTER imports
 
 require('dotenv').config();
+const isProduction = process.env.NODE_ENV === 'production';
+
 const pool = new Pool({
   host: process.env.DB_HOST,
+  port: 5432,
   database: process.env.DB_NAME,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  port: 5432, // default PostgreSQL port
-  ssl: false  // Set to true only if using SSL (like Render or Heroku)
+  ssl: isProduction ? { rejectUnauthorized: false } : false
 });
+
 
 const createGovernmentTable = require('./Models/gov_stdModel');
 const createSelfFundingTable = require('./Models/self_stdModels');
