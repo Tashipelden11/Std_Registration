@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser'); // import cookie-parser
 const session = require('express-session'); 
 const pgSession = require('connect-pg-simple')(session);
+const { Pool } = require('pg');
 const authRoutes = require('./Routes/authRoutes');
 const userRoutes = require('./Routes/userRoutes');
 const adminRoutes = require('./Routes/adminRoutes');
@@ -9,6 +10,15 @@ const path = require('path');
 const app = express(); // <== app initialized AFTER imports
 
 require('dotenv').config();
+const pool = new Pool({
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  port: 5432, // default PostgreSQL port
+  ssl: false  // Set to true only if using SSL (like Render or Heroku)
+});
+
 const createGovernmentTable = require('./Models/gov_stdModel');
 const createSelfFundingTable = require('./Models/self_stdModels');
 const { createUsersTable } = require('./Models/user');
