@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser'); // import cookie-parser
 const session = require('express-session'); 
+const pgSession = require('connect-pg-simple')(session);
 const authRoutes = require('./Routes/authRoutes');
 const userRoutes = require('./Routes/userRoutes');
 const adminRoutes = require('./Routes/adminRoutes');
@@ -37,10 +38,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 // Session config
 app.use(session({
+  store: new pgSession({
+    pool: pool,                 // 🔁 use your shared pg Pool instance
+    tableName: 'session'        // default table name, can change if needed
+  }),
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 }
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+    secure: false               // set to true if using HTTPS in production
+  }
 }));
 // Body parser middleware
 app.use(express.urlencoded({ extended: true }));
