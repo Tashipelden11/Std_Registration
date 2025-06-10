@@ -1,15 +1,17 @@
 // createSelfFundingTable.js
 
 require('dotenv').config();
-const { Client } = require('pg');
+const { Pool } = require('pg');
 
-// PostgreSQL connection config using environment variables
-const client = new Client({
+// PostgreSQL connection pool using environment variables
+const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
   password: process.env.DB_PASS,
   port: process.env.DB_PORT,
+  max: 10,
+  idleTimeoutMillis: 30000,
 });
 
 const createTableQuery = `
@@ -33,16 +35,21 @@ const createTableQuery = `
 `;
 
 async function createTable() {
+  const client = await pool.connect();
+
   try {
-    await client.connect();
     await client.query(createTableQuery);
     console.log('✅ self_funding_students table created successfully.');
   } catch (err) {
     console.error('❌ Error creating table:', err);
   } finally {
-    await client.end();
+    client.release();
   }
 }
 
-module.exports = createTable;
+// Run when executed directly
+if (require.main === module) {
+  createTable();
+}
 
+module.exports = createTable;
