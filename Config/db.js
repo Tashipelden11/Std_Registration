@@ -7,7 +7,9 @@ const db = pgp({
   database: process.env.DB_NAME,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  ssl: false // ❗ disable SSL entirely
+  ssl:{
+    rejectionUnauthorized: false
+  }
 });
 
 module.exports = db;
